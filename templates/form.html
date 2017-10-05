@@ -1,0 +1,49 @@
+<!doctype html>
+<html> 
+  <head><link rel="icon" href="welcome.html"></head>  
+  <body>
+    <form>
+    <style>
+        <title>Singup</title>
+        <style type="text/css"
+            .error {
+                 color: red;
+             }
+        label{
+              display: block;
+              float: left;
+              width : 120px;    
+        }
+        br {margin-bottom: 20px;}
+    </style>
+
+    <h1>Sign up</h1>
+        <label for="username">Username</label>
+        <input name="username" minlength="3" maxlength="20" value= "" type="text" />  
+        <span class="error"></span>
+        <br>
+        <label for="password">Password</label>
+        <input name="password" minlength="3" maxlength="20"  type="password" /> 
+        <span class="error"></span>
+        <br>
+        <label for="verify">Verify Password</label>
+        <input name="verify"  type="password" />
+        <span class="error"></span>
+        <br>
+        <label for="email">Email (optional)</label>
+        <input name="email"  minlength="3" maxlength="20" value="" />
+        <p class="error"></p>
+        <br>
+        <label for="submit"></label>
+        <input type="submit"  value = "Submit query"/>
+        <br>
+
+    </form> 
+    
+{% if error %}
+   <p class ='error'>{{ error }}</p>
+{% endif %}
+{% block content %}
+{% endblock %} 
+ </body>
+</html>
