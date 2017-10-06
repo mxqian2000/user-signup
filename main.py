@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, url_for
+from flask import Flask, request, redirect, render_template
 import cgi
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ app.config['DEBUG'] = True
 def index():
     return render_template('form.html')
 
-@app.route("/signup", methods = ['POST'])
+@app.route("/", methods = ['POST'])
 
 def validate_signup():
     username=request.form['username']
@@ -21,31 +21,29 @@ def validate_signup():
     verify_error = ''
     email_error = ''
 
-    if len(username)<3 or len(username)>20:
-        username_error = "Please enter a valid username"
-        username = ''
+    if len(username) < 3 or len(username) > 20:
+        username_error = "That's not a valid username"
 
-    if len(password)<3 or len(password)>20:
-        password_error = "Please enter a valid password"
-        password = ''
+    if len(password) < 3 or len(password) > 20:
+        password_error = "That's not a valid password"
 
     if verify != password:
         verify_error = "Password and verify must match"
-        verify = ''
-    if len(email)<3 or len(email)>20:
-        email_error = "Please enter a valid email"
-        email = ''
-   
-        return render_template('form.html')
-    else:
-        
-        return redirect(url_for('welcome'))
-        
-@app.route('/welcome')   
-def welcome():    
-    
-    return '<h1> Welcome,{0}!</h1>'.format('username')
-    
-if __name__ == "__main__":
  
-    app.run()
+    if len(email) < 3 or len(email) > 20:
+        email_error = "That's not a valid email"
+        if ' ' in email or '@' not in email or '.' not in email:
+             email_error = "That's not a valid email"
+
+    if not username_error and not password_error and not verify_error and not email_error:
+        return redirect('/welcome?username={0}'.format(username))
+    else:
+        return render_template('form.html', username = username, username_error = username_error, password_error = password_error, verify_error = verify_error,
+        email = email, email_error = email_error)
+@app.route("/welcome")
+def welcome():    
+    username = request.args.get('username')
+    return render_template("welcome.html", username = username)
+    
+
+app.run()

@@ -1,8 +1,9 @@
 <!doctype html>
+{% extends "base.html" %}
+{% block content %}
 <html> 
-  <head><link rel="icon" href="welcome.html"></head>  
-  <body>
-    <form>
+    <body>
+    
     <style>
         <title>Singup</title>
         <style type="text/css"
@@ -16,34 +17,28 @@
         }
         br {margin-bottom: 20px;}
     </style>
-
+    <form method = 'POST'>
     <h1>Sign up</h1>
         <label for="username">Username</label>
-        <input name="username" minlength="3" maxlength="20" value= "" type="text" />  
-        <span class="error"></span>
+        <input name="username" minlength="3" maxlength="20" value= "{{username}}", type="text" />  
+        <span class="error">{{username_error}}</span>
         <br>
         <label for="password">Password</label>
         <input name="password" minlength="3" maxlength="20"  type="password" /> 
-        <span class="error"></span>
+        <span class="error">{{password_error}}</span>
         <br>
-        <label for="verify">Verify Password</label>
+        <label for="verify">Verify</label>
         <input name="verify"  type="password" />
-        <span class="error"></span>
+        <span class="error">{{verify_error}}</span>
         <br>
         <label for="email">Email (optional)</label>
-        <input name="email"  minlength="3" maxlength="20" value="" />
-        <p class="error"></p>
+        <input name="email"  minlength="3" maxlength="20" value= "{{email}}"" />
+        <p class="error">{{email_error}}</p>
         <br>
         <label for="submit"></label>
         <input type="submit"  value = "Submit query"/>
         <br>
-
-    </form> 
-    
-{% if error %}
-   <p class ='error'>{{ error }}</p>
-{% endif %}
-{% block content %}
-{% endblock %} 
+    {% endblock %}
+    </form>    
  </body>
 </html>
